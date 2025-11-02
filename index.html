@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIVE Step Circular Infographic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>5 Step Circular Infographic</h1>
+  </header>
+
+  <main>
+    <div class="infographic-container">
+      <img src="h1.png" alt="5 Step Circular Infographic" class="infographic" usemap="#stepsMap">
+      
+      <!-- Clickable map areas -->
+      <map name="stepsMap">
+        <area shape="poly" coords="240,100,300,150,250,200,180,150" href="#" data-step="1" alt="Step 1">
+        <area shape="poly" coords="300,150,350,220,300,280,250,200" href="#" data-step="2" alt="Step 2">
+        <area shape="poly" coords="280,260,340,300,280,360,220,300" href="#" data-step="3" alt="Step 3">
+        <area shape="poly" coords="200,320,260,360,220,420,160,360" href="#" data-step="4" alt="Step 4">
+        <area shape="poly" coords="140,280,200,320,160,360,100,300" href="#" data-step="5" alt="Step 5">
+      </map>
+    </div>
+
+    <!-- Info box -->
+    <div id="info-box" class="info-box hidden">
+      <h2 id="step-title">Step Title</h2>
+      <p id="step-description">Description of the step goes here.</p>
+      <button id="close-btn">Close</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Interactive Infographic | Designed by Adam TRAORE</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
