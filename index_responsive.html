@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Market Burkina - Marché Bio</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* ------------------------------------------------------------------ */
+        /* 1. RESET & GLOBAL */
+        /* ------------------------------------------------------------------ */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html,body { height:100%; }
+        body {
+            font-family:'Segoe UI',Arial,sans-serif;
+            background:#f0f2f5;
+            color:#333;
+            display:flex;
+            overflow:hidden;
+        }
+
+        /* ------------------------------------------------------------------ */
+        /* 2. MENU (fixed left) */
+        /* ------------------------------------------------------------------ */
+        nav {
+            width:260px;
+            background:#1a2a44;
+            height:100vh;
+            position:fixed;
+            left:0; top:0;
+            padding:30px 0;
+            box-shadow:8px 0 20px rgba(0,0,0,.3);
+            z-index:1000;
+            transition:transform .35s ease, width .3s ease;
+        }
+        nav h2 {
+            color:#fff;
+            text-align:center;
+            margin-bottom:40px;
+            font-size:clamp(1.4rem, 4vw, 1.6rem);
+        }
+        nav ul { list-style:none; }
+        nav ul li { position:relative; }
+        nav ul li a.main-item {
+            display:flex;
+            align-items:center;
+            padding:18px 25px;
+            color:#fff;
+            text-decoration:none;
+            font-weight:bold;
+            font-size:1.1rem;
+            transition:all .3s;
+        }
+        nav ul li a.main-item i {
+            margin-right:15px;
+            font-size:1.4rem;
+            width:30px;
+        }
+        nav ul li a.main-item:hover { background:#2c4066; padding-left:35px; }
+
+        /* ----- dropdown ----- */
+        .dropdown {
+            background:#fff;
+            box-shadow:8px 8px 20px rgba(0,0,0,.2);
+            max-height:0;
+            overflow:hidden;
+            transition:max-height .5s ease;
+        }
+        nav ul li:hover .dropdown { max-height:500px; }
+        .dropdown li a {
+            display:block;
+            padding:14px 25px 14px 70px;
+            color:#1a2a44;
+            text-decoration:none;
+            transition:all .3s;
+            border-bottom:1px solid #eee;
+        }
+        .dropdown li a:hover {
+            background:#e8f5e8;
+            padding-left:80px;
+            color:#27ae60;
+            font-weight:bold;
+        }
+
+        /* ------------------------------------------------------------------ */
+        /* 3. CONTENT AREA */
+        /* ------------------------------------------------------------------ */
+        #content {
+            margin-left:260px;
+            flex:1;
+            height:100vh;
+            position:relative;
+            background:#fff;
+            transition:margin-left .35s ease;
+        }
+        .home-btn {
+            position:absolute;
+            top:15px;
+            right:20px;
+            background:#27ae60;
+            color:#fff;
+            padding:12px 18px;
+            border-radius:50px;
+            font-size:1.4rem;
+            box-shadow:0 4px 15px rgba(39,174,96,.4);
+            cursor:pointer;
+            z-index:999;
+            transition:all .3s;
+        }
+        .home-btn:hover { background:#219653; transform:scale(1.1); }
+
+        .page-container {
+            height:100%;
+            padding:20px;
+            padding-top:70px;
+            overflow:auto;
+        }
+        iframe {
+            width:100%;
+            height:calc(100vh - 90px);
+            border:none;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,.15);
+        }
+
+        /* ------------------------------------------------------------------ */
+        /* 4. RESPONSIVE – TEXT ALWAYS VISIBLE */
+        /* ------------------------------------------------------------------ */
+
+        /* Tablet & small desktop: fluid width, text stays */
+        @media (max-width:992px) {
+            nav { 
+                width: clamp(180px, 22vw, 260px);
+                padding: 20px 10px;
+            }
+            nav h2 { 
+                font-size: clamp(1.2rem, 3vw, 1.4rem);
+                margin-bottom: 20px;
+            }
+            nav ul li a.main-item {
+                padding: 14px 12px;
+                font-size: clamp(0.9rem, 2.5vw, 1rem);
+                justify-content: flex-start;
+            }
+            nav ul li a.main-item i {
+                margin-right: 10px;
+                font-size: 1.3rem;
+                width: 26px;
+            }
+            .dropdown li a { 
+                padding-left: 50px; 
+                font-size: 0.85rem;
+            }
+            #content { margin-left: clamp(180px, 22vw, 260px); }
+        }
+
+        /* Optional: icon-only on very small phones */
+        @media (max-width:480px) {
+            nav { width: 70px; }
+            nav h2 { display:none; }
+            nav ul li a.main-item { justify-content:center; padding:14px 0; }
+            nav ul li a.main-item span { display:none; }
+            nav ul li a.main-item i { margin:0; font-size:1.4rem; }
+            .dropdown li a { padding-left:15px; font-size:0.8rem; }
+            #content { margin-left:70px; }
+        }
+
+        /* Mobile drawer (hamburger) */
+        @media (max-width:576px) {
+            nav {
+                width:260px;
+                transform:translateX(-100%);
+            }
+            nav.open { transform:translateX(0); }
+            #content { margin-left:0; }
+
+            .hamburger {
+                position:fixed;
+                top:15px; left:15px;
+                background:#1a2a44;
+                color:#fff;
+                padding:10px 12px;
+                border-radius:50%;
+                font-size:1.5rem;
+                cursor:pointer;
+                z-index:1100;
+                box-shadow:0 2px 8px rgba(0,0,0,.3);
+            }
+            .hamburger:hover { background:#2c4066; }
+            .home-btn { right:15px; }
+        }
+
+        @media (max-width:380px) {
+            nav { width:220px; }
+            .dropdown li a { padding-left:15px; font-size:0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HAMBURGER (mobile only) -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- MENU -->
+    <nav id="sideNav">
+        <h2>Fresh Market</h2>
+        <ul>
+            <!-- FRUITS -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-apple-alt"></i><span>Fruits</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Pomme')">Pomme</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Banane')">Banane</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Orange_(fruit)')">Orange</a></li>
+                </ul>
+            </li>
+
+            <!-- LÉGUMES -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-carrot"></i><span>Légumes</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Carotte')">Carotte</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Brocoli')">Brocoli</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Tomate')">Tomate</a></li>
+                </ul>
+            </li>
+
+            <!-- VIANDES & POISSON -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-drumstick-bite"></i><span>Viandes</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Poulet')">Poulet</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Boeuf')">Bœuf</a></li>
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Poisson')">Poisson</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <div class="home-btn" onclick="loadHome()" title="Accueil">
+            <i class="fas fa-home"></i>
+        </div>
+
+        <div class="page-container" id="pageContainer">
+            <div style="text-align:center;padding:40px;">
+                <h1 style="color:#27ae60;">Fresh Market Burkina</h1>
+                <p style="font-size:1.4rem;max-width:700px;margin:30px auto;">
+                    Cliquez sur n'importe quel produit dans le menu pour charger la page Wikipédia complète !
+                </p>
+                <p style="color:#e74c3c;font-weight:bold;">
+                    Tous les liens sont commentés – changez-les en 5 secondes !
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sideNav').classList.toggle('open');
+        }
+
+        function loadExternal(url) {
+            const container = document.getElementById('pageContainer');
+            container.innerHTML = `<iframe src="${url}" loading="lazy"></iframe>`;
+            if (window.innerWidth <= 576) {
+                document.getElementById('sideNav').classList.remove('open');
+            }
+        }
+
+        function loadHome() {
+            const container = document.getElementById('pageContainer');
+            container.innerHTML = `
+                <div style="text-align:center;padding:40px;">
+                    <h1 style="color:#27ae60;">Fresh Market Burkina</h1>
+                    <p style="font-size:1.4rem;max-width:700px;margin:30px auto;">
+                        Cliquez sur n'importe quel produit dans le menu pour charger la page Wikipédia complète !
+                    </p>
+                    <p style="color:#e74c3c;font-weight:bold;">
+                        Tous les liens sont commentés – changez-les facilement !
+                    </p>
+                </div>`;
+        }
+    </script>
+</body>
+</html>
