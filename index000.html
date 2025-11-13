@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Market Burkina - Marché Bio</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* MENU FIXE À GAUCHE */
+        nav {
+            width: 260px;
+            background: #1a2a44;
+            height: 100vh;
+            position: fixed;
+            left: 0; top: 0;
+            padding: 30px 0;
+            box-shadow: 8px 0 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        nav h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.6rem;
+        }
+        nav ul { list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a.main-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        nav ul li a.main-item i {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            width: 30px;
+        }
+        nav ul li a.main-item:hover { background: #2c4066; padding-left: 35px; }
+
+        /* Sous-menu */
+        .dropdown {
+            background: white;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.2);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        nav ul li:hover .dropdown { max-height: 500px; }
+        .dropdown li a {
+            display: block;
+            padding: 14px 25px 14px 70px;
+            color: #1a2a44;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown li a:hover {
+            background: #e8f5e8;
+            padding-left: 80px;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* ZONE CONTENU PLEIN ÉCRAN */
+        #content {
+            margin-left: 260px;
+            flex: 1;
+            height: 100vh;
+            position: relative;
+            background: white;
+        }
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(39,174,96,0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s;
+        }
+        .home-btn:hover {
+            background: #219653;
+            transform: scale(1.1);
+        }
+        .page-container {
+            height: 100%;
+            padding: 20px;
+            padding-top: 70px;
+        }
+        iframe {
+            width: 100%;
+            height: calc(100vh - 90px);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { width: 80px; padding: 20px 0; }
+            nav h2 { display: none; }
+            nav ul li a.main-item { justify-content: center; padding: 20px 0; }
+            nav ul li a.main-item span { display: none; }
+            nav ul li a.main-item i { margin: 0; font-size: 1.6rem; }
+            .dropdown li a { padding-left: 20px; font-size: 0.9rem; }
+            #content { margin-left: 80px; }
+        }
+        @media (max-width: 480px) {
+            nav { width: 70px; }
+            #content { margin-left: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU AVEC ICÔNES -->
+    <nav>
+        <h2>Fresh Market</h2>
+        <ul>
+            <!-- FRUITS -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-apple-alt"></i> <span>Fruits</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Pomme')">Pomme</a></li>
+                    <!-- ↑ Page Wikipédia française sur la pomme -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Banane')">Banane</a></li>
+                    <!-- ↑ Wikipédia : Banane -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Orange_(fruit)')">Orange</a></li>
+                    <!-- ↑ Wikipédia : Orange (fruit) -->
+                </ul>
+            </li>
+
+            <!-- LÉGUMES -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-carrot"></i> <span>Légumes</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Carotte')">Carotte</a></li>
+                    <!-- ↑ Wikipédia : Carotte -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Brocoli')">Brocoli</a></li>
+                    <!-- ↑ Wikipédia : Brocoli -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Tomate')">Tomate</a></li>
+                    <!-- ↑ Wikipédia : Tomate -->
+                </ul>
+            </li>
+
+            <!-- VIANDES & POISSON -->
+            <li>
+                <a href="#" class="main-item"><i class="fas fa-drumstick-bite"></i> <span>Viandes</span></a>
+                <ul class="dropdown">
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Poulet')">Poulet</a></li>
+                    <!-- ↑ Wikipédia : Poulet -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Boeuf')">Bœuf</a></li>
+                    <!-- ↑ Wikipédia : Bœuf -->
+
+                    <li><a href="#" onclick="loadExternal('https://fr.wikipedia.org/wiki/Poisson')">Poisson</a></li>
+                    <!-- ↑ Wikipédia : Poisson (alimentation) -->
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div id="content">
+        <div class="home-btn" onclick="loadHome()" title="Accueil">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="page-container">
+            <div style="text-align:center; padding:40px;">
+                <h1 style="color:#27ae60; font-size:3.5rem;">Fresh Market Burkina</h1>
+                <p style="font-size:1.4rem; max-width:700px; margin:30px auto;">
+                    Cliquez sur n'importe quel produit dans le menu pour charger la page Wikipédia complète !
+                </p>
+                <p style="color:#e74c3c; font-weight:bold;">Tous les liens sont commentés – changez-les en 5 secondes !</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CHARGER UNE PAGE EXTERNE (Wikipédia ou autre)
+        function loadExternal(url) {
+            document.querySelector('.page-container').innerHTML = `
+                <iframe src="${url}" loading="lazy"></iframe>
+            `;
+        }
+
+        // RETOUR À L'ACCUEIL
+        function loadHome() {
+            document.querySelector('.page-container').innerHTML = `
+                <div style="text-align:center; padding:40px;">
+                    <h1 style="color:#27ae60; font-size:3.5rem;">Fresh Market Burkina</h1>
+                    <p style="font-size:1.4rem; max-width:700px; margin:30px auto;">
+                        Cliquez sur n'importe quel produit dans le menu pour charger la page Wikipédia complète !
+                    </p>
+                    <p style="color:#e74c3c; font-weight:bold;">Tous les liens sont commentés – changez-les facilement !</p>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
